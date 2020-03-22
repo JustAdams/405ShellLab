@@ -4,8 +4,8 @@ int main(int argc, char **argv) {
 
     // gets the username from system
     char *username = getenv("USER");
-
-    char str[100];
+    char *parsed_str[INPUT_LIMIT];
+    char str[LETTER_LIMIT];
 
     // enter into command input loop
     // puts input into str
@@ -16,7 +16,8 @@ int main(int argc, char **argv) {
             continue;
         } else {
             // input handled here
-            
+            // str - initial input
+            parse_input(str);
         }
     }
 
