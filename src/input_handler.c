@@ -25,6 +25,7 @@ char **parse_input(char *input, char *delim)
     return tokens;
 }
 
+// execute the passed command argument
 void execute_cmd(char *cmd)
 {
 

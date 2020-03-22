@@ -17,8 +17,13 @@ int sh_exit(char **args) {
     return 0;
 }
 
-// 
+// change directory to second argument
 int sh_cd(char **args)
 {
+    // try to change directory
+    if (chdir(args[1]) != 0)
+    {
+        fprintf(stderr, "%s does not exist in this context\n", args[1]);
+    }
     return 1;
 }

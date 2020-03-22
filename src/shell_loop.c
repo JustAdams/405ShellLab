@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void shell_loop()
+int shell_loop()
 {
     // while loop status
     int status = 1;
@@ -10,35 +10,39 @@ void shell_loop()
     char *parsed_str[INPUT_LIMIT];
     char str[LETTER_LIMIT];
 
-    char **parsed_args;
+    char **parsed_args, **cmd_args;
 
     // enter into command input loop
     // puts input into str
     while (status == 1) {
         // display user info at prompt
         printf("%ssh", username);
+        // get user input and go to else if has arguments
         if (user_input(str)) {
             // no input given
             continue;
         } else {
             // input handled here
-            // str - initial input
+            // separate arguments by pipes
             parsed_args = parse_input(str, PIPE_TOK_DELIM);
+ 
             for (int i = 0; parsed_args[i] != NULL; i++) 
             {
+                // split commands into individual parts
+                cmd_args = parse_input(parsed_args[i], SH_TOK_DELIM);
                 clear_args = 0;
-                // determine if arg is a builtin function
+                // determine if arg is a builtin function and executes
                 for (int i = 0; i < num_builtins(); i++) 
                 {
-                    if (strcmp(parsed_args[0], builtin_str[i]) == 0)
+                    if (strcmp(cmd_args[0], builtin_str[i]) == 0)
                     {
-                        status = (*builtin_func[i])(parsed_args);
+                        status = (*builtin_func[i])(cmd_args);
                         clear_args = 1;
                     }
                 }
                 if (clear_args)
                 {
-                    free(parsed_args);
+                    free(cmd_args);
                     break;
                 }
 
@@ -55,9 +59,9 @@ void shell_loop()
                 if (pid == 0)
                 {                    
                     // run linux command if valid
-                    if (execvp(parsed_args[0], parsed_args) == -1)
+                    if (execvp(cmd_args[0], cmd_args) == -1)
                     {
-                        fprintf(stderr, "Command not found\n", new_args[0]);
+                        fprintf(stderr, "command %s is not valid\n", new_args[0]);
                     }
                 }
             }
@@ -65,4 +69,6 @@ void shell_loop()
             wait(NULL);
         }
     }
+    // succesful end of program
+    return 1;
 }

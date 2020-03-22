@@ -14,6 +14,7 @@
 
 
 #define PIPE_TOK_DELIM "|\t\r\n\a"
+#define SH_TOK_DELIM " \t\r\n\a"
 #define INPUT_LIMIT 100
 #define LETTER_LIMIT 100
 
@@ -23,13 +24,15 @@
 #ifndef __BASIC_FUNC__  
 #define __BASIC_FUNC__
 
-void shell_loop();
+int shell_loop();
 int user_input(char *str);
 char **parse_input(char *input, char *delim);
 void execute_cmd(char *cmd);
 int sh_pwd(char **args);
 int sh_exit(char **args);
 int sh_cd(char **args);
+
+void signal_handler(int sig);
 
 #define REALLOC(ptr, ptr_old, num, type, std_size) {\
     num += std_size;\
@@ -38,7 +41,7 @@ int sh_cd(char **args);
     if (!ptr)\
     {\
         free(ptr_old);\
-        fprintf(stderr, "ve482ssh: Allocation error\n");\
+        fprintf(stderr, "Allocation error\n");\
         ptr = NULL;\
     }\
 }
