@@ -21,7 +21,8 @@ void shell_loop()
             // input handled here
             // str - initial input
             parsed_args = parse_input(str, PIPE_TOK_DELIM);
-            for (int i = 0; parsed_args[i] != NULL; i++) {
+            for (int i = 0; parsed_args[i] != NULL; i++) 
+            {
 
                 // determine if arg is a builtin function
                 for (int i = 0; i < num_builtins(); i++) 
@@ -34,6 +35,7 @@ void shell_loop()
 
                 // fork a child
                 pid_t pid;
+                char **new_args = NULL;
                 pid = fork();
                 if (pid < 0)
                 {
@@ -42,10 +44,16 @@ void shell_loop()
                 }
 
                 if (pid == 0)
-                {
-                    printf("child process %d created\n", pid);
+                {                    
+                    // run linux command if valid
+                    if (execvp(parsed_args[0], parsed_args) == -1)
+                    {
+                        fprintf(stderr, "Command not found\n", new_args[0]);
+                    }
                 }
             }
+            // wait for child process to terminate
+            wait(NULL);
         }
     }
 
