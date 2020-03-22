@@ -26,7 +26,10 @@
 void shell_loop();
 int user_input(char *str);
 char **parse_input(char *input, char *delim);
-void execute_cmd(char **cmd);
+void execute_cmd(char *cmd);
+int sh_pwd(char **args);
+int sh_exit(char **args);
+int sh_cd(char **args);
 
 #define REALLOC(ptr, ptr_old, num, type, std_size) {\
     num += std_size;\
@@ -39,5 +42,22 @@ void execute_cmd(char **cmd);
         ptr = NULL;\
     }\
 }
+
+static char *builtin_str[] = {
+    "pwd",
+    "exit",
+    "cd"
+};
+
+static int (*builtin_func[])(char **) = {
+    &sh_pwd,
+    &sh_exit,
+    &sh_cd
+};
+
+static int num_builtins()
+{
+    return sizeof(builtin_str) / sizeof(char *);
+};
 
 #endif

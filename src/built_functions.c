@@ -1,6 +1,8 @@
 #include "shell.h"
 
-int sh_pwd() 
+
+// present working directory
+int sh_pwd(char **args) 
 {
     char *buff;
     buff = getcwd(NULL, 0);
@@ -10,6 +12,13 @@ int sh_pwd()
     return 1;
 }
 
-int sh_exit() {
+// exit the shell
+int sh_exit(char **args) {
     return 0;
+}
+
+// 
+int sh_cd(char **args)
+{
+    return 1;
 }

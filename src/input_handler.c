@@ -25,27 +25,8 @@ char **parse_input(char *input, char *delim)
     return tokens;
 }
 
-void execute_cmd(char **cmd)
+void execute_cmd(char *cmd)
 {
-    for (int i = 0; cmd[i] != NULL; i++) {
 
-    }
-    pid_t p = fork();
-    if (p == -1) {
-        printf("Error in forking child...stop\n");
-        return;
-    } else if (p == 0) {
-        // execute command
-        // error caused if command is non-existant
-        if (execvp(cmd[0], cmd) == -1) {
-            printf("Error executing command...stop\n");
-        }
-        exit(0);
-    } else {
-        // wait for child to terminate
-        printf("WAIT\n");
-        wait(NULL);
-        return;
-    }
     
 }
