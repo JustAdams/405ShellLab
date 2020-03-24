@@ -1,3 +1,7 @@
+// CPSC 405 - Shell Lab
+// Justin Adams
+// Zachary Wallace
+
 #include "shell.h"
 
 int main(int argc, char **argv) 
