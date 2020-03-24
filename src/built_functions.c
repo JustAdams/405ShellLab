@@ -27,3 +27,16 @@ int sh_cd(char **args)
     }
     return 1;
 }
+
+int sh_help(char **args)
+{
+    printf("\nCommands:\n");
+    printf("Built-in Functions:\n");
+    printf(" *  pwd - Display the present working directory\n");
+    printf(" *  exit - Exits the shell\n");
+    printf(" *  cd + directory - Change the current directory to the given one\n");
+    printf(" *  help - Do what you're doing now!\n");
+    
+    printf("\n");
+    return 1;
+}

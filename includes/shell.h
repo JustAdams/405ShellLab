@@ -31,6 +31,7 @@ void execute_cmd(char *cmd);
 int sh_pwd(char **args);
 int sh_exit(char **args);
 int sh_cd(char **args);
+int sh_help(char **args);
 // users system username
 char *username;
 
@@ -51,13 +52,15 @@ void signal_handler(int signum);
 static char *builtin_str[] = {
     "pwd",
     "exit",
-    "cd"
+    "cd",
+    "help"
 };
 
 static int (*builtin_func[])(char **) = {
     &sh_pwd,
     &sh_exit,
-    &sh_cd
+    &sh_cd,
+    &sh_help
 };
 
 static int num_builtins()
