@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <signal.h>
 
 // GNU libraries
 #include <readline/readline.h>
@@ -17,7 +18,6 @@
 #define SH_TOK_DELIM " \t\r\n\a"
 #define INPUT_LIMIT 100
 #define LETTER_LIMIT 100
-
 #endif
 
 
@@ -31,8 +31,10 @@ void execute_cmd(char *cmd);
 int sh_pwd(char **args);
 int sh_exit(char **args);
 int sh_cd(char **args);
+// users system username
+char *username;
 
-void signal_handler(int sig);
+void signal_handler(int signum);
 
 #define REALLOC(ptr, ptr_old, num, type, std_size) {\
     num += std_size;\

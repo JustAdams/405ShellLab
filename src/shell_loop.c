@@ -6,12 +6,12 @@ int shell_loop()
     int status = 1;
     int clear_args = 0;
     // gets the username from system
-    char *username = getenv("USER");
     char *parsed_str[INPUT_LIMIT];
     char str[LETTER_LIMIT];
 
     char **parsed_args, **cmd_args;
-
+    signal(SIGINT, signal_handler);
+        
     // enter into command input loop
     // puts input into str
     while (status == 1) {
