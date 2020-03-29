@@ -1,6 +1,5 @@
 #include "shell.h"
 
-
 // present working directory
 int sh_pwd(char **args) 
 {
@@ -28,6 +27,7 @@ int sh_cd(char **args)
     return 1;
 }
 
+// display the possible commands
 int sh_help(char **args)
 {
     printf("\nCommands:\n");
@@ -36,7 +36,9 @@ int sh_help(char **args)
     printf(" *  exit - Exits the shell\n");
     printf(" *  cd + directory - Change the current directory to the given one\n");
     printf(" *  help - Do what you're doing now!\n");
-    
+
+    printf("All standard Linux commands are also included\n");
+
     printf("\n");
     return 1;
 }
