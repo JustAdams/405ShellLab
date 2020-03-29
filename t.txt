@@ -1,3 +1,5 @@
+cmd args ls
+new args ls
 includes
 Makefile
 README.md

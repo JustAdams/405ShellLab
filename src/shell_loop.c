@@ -67,6 +67,7 @@ int shell_loop()
                 // succesful fork
                 if (pid == 0)
                 {
+                    // new args get pipe determination
                     new_args = fileIO(cmd_args);
                     // create pipe if pipe in command exists
                     if (pipe_num > 0)
@@ -84,7 +85,7 @@ int shell_loop()
                         }
                     }
 
-                    // run linux command if valid
+                    // run linux command of new arguments if valid
                     if (execvp(new_args[0], new_args) == -1)
                     {
                         fprintf(stderr, "command %s is not valid\n", new_args[0]);

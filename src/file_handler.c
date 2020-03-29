@@ -57,6 +57,7 @@ int file_handler(char **args, char *op, int i)
     return 0;
 }
 
+// copy file descriptors and close pipes dependning on pipe type
 int file_open(char *file, char *opt)
 {
     // file descripter #
