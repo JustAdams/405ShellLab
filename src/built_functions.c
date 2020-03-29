@@ -30,14 +30,15 @@ int sh_cd(char **args)
 // display the possible commands
 int sh_help(char **args)
 {
-    printf("\nCommands:\n");
+    
+    printf("\nCommands:\n\n");
     printf("Built-in Functions:\n");
     printf(" *  pwd - Display the present working directory\n");
     printf(" *  exit - Exits the shell\n");
     printf(" *  cd + directory - Change the current directory to the given one\n");
     printf(" *  help - Do what you're doing now!\n");
 
-    printf("All standard Linux commands are also included\n");
+    printf("\nAll standard Linux commands are also included (e.g. 'ls', 'cat', 'touch', 'nano', etc...\n");
 
     printf("\n");
     return 1;

@@ -29,17 +29,16 @@ int shell_loop()
             // input handled here
             // separate arguments by pipes
             parsed_args = parse_input(str, PIPE_TOK_DELIM);
-            
             // Find number of pipes
             for (pipe_num = 0; parsed_args[pipe_num] != NULL; pipe_num++);
             pipe_num -= 1;
-
 
             for (i = 0; parsed_args[i] != NULL; i++) 
             {
                 // split commands into individual parts
                 cmd_args = parse_input(parsed_args[i], SH_TOK_DELIM);
                 clear_args = 0;
+
                 // determine if arg is a builtin function and executes
                 for (int i = 0; i < num_builtins(); i++) 
                 {
@@ -58,14 +57,15 @@ int shell_loop()
                 pid_t pid;
                 char **new_args = NULL;
                 pid = fork();
+
                 if (pid < 0)
                 {
                     fprintf(stderr, "error creating child process. stop\n");
                     break;
                 }
                 if (pid == 0)
-                {                 
-                    
+                {
+                    new_args = fileIO(cmd_args);
                     // create pipe if valid
                     if (pipe_num > 0)
                     {
@@ -88,6 +88,12 @@ int shell_loop()
                         fprintf(stderr, "command %s is not valid\n", new_args[0]);
                     }
                 }
+                if (i != 0) { close(pipe_read); }
+                if (i < pipe_num)
+                {
+                    close(pfd[1]);
+                    pipe_read = pfd[0];
+                }
             }
             
             // wait for child process to terminate
@@ -100,3 +106,4 @@ int shell_loop()
     // succesful end of program
     return 1;
 }
+

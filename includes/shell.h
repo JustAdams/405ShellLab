@@ -1,6 +1,7 @@
 #ifndef __SHELL_H__
 #define __SHELL_H__
 #include <stdio.h>
+#include <dirent.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -8,6 +9,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <signal.h>
+#include <fcntl.h>
 
 // GNU libraries
 #include <readline/readline.h>
@@ -32,6 +34,9 @@ int sh_pwd(char **args);
 int sh_exit(char **args);
 int sh_cd(char **args);
 int sh_help(char **args);
+char **fileIO(char *args[]);
+int file_handler(char **args, char *op, int i);
+int file_open(char *file, char *opt);
 // users system username
 char *username;
 
@@ -47,6 +52,11 @@ void signal_handler(int signum);
         fprintf(stderr, "Allocation error\n");\
         ptr = NULL;\
     }\
+}
+
+#define MALLOC(ptr, num, type) {\
+    ptr = (type *)malloc((num) * sizeof(type));\
+    if (!ptr) fprintf(stderr, "Memory allocation error\n");\
 }
 
 static char *builtin_str[] = {
@@ -67,5 +77,7 @@ static int num_builtins()
 {
     return sizeof(builtin_str) / sizeof(char *);
 };
+
+
 
 #endif
