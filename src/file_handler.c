@@ -18,6 +18,7 @@ char **fileIO(char *args[]) {
         // if there's a file pipe operator...
         if ((flag_in > 0 || flag_out > 0))
         {
+            // pipe operator
             i += 2;
             continue;
         }
@@ -40,15 +41,16 @@ char **fileIO(char *args[]) {
 // compares arguments to file operator values and returns true if it matches
 int file_handler(char **args, char *op, int i)
 {
-    char file[2048], opt[2048], temp[2048];
+    char file[1024], opt[1024], temp[1024];
     if (strstr(args[i], op) != NULL)
     {
         // argument matches operator
         if (strcmp(args[i], op) == 0)
         {
             // check for a valid output file
-            if (args[i + 1], op == NULL) {}
+            if (args[i + 1], op == NULL) { printf("invalid type\n"); }
             int flag = file_open(args[i + 1], op);
+            // currently sending output to file
             return flag;
         }
     }
@@ -59,6 +61,8 @@ int file_open(char *file, char *opt)
 {
     // file descripter #
     int file_d;
+
+    // write to file
     if (strcmp(">", opt) == 0)
     {
         file_d = open(file, O_CREAT | O_TRUNC | O_WRONLY, 0600);
@@ -67,11 +71,21 @@ int file_open(char *file, char *opt)
         close(file_d);
         return 1;
     }
+    // input from file
     if (strcmp("<", opt) == 0)
     {
         file_d = open(file, 00);
         if(file_d < 0) { printf("Error: file read problem\n"); }
         dup2(file_d, STDIN_FILENO);
+        close(file_d);
+        return 1;
+    }
+    // append to a file
+    if (strcmp(">>", opt) == 0)
+    {
+        file_d = open(file, O_APPEND | O_WRONLY);
+        if ( file_d < 0) { printf("Error: file append problem\n"); }
+        dup2(file_d, STDOUT_FILENO);
         close(file_d);
         return 1;
     }

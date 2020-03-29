@@ -53,6 +53,7 @@ int shell_loop()
                     free(cmd_args);
                     break;
                 }
+
                 // fork a child
                 pid_t pid;
                 char **new_args = NULL;
@@ -63,10 +64,11 @@ int shell_loop()
                     fprintf(stderr, "error creating child process. stop\n");
                     break;
                 }
+                // succesful fork
                 if (pid == 0)
                 {
                     new_args = fileIO(cmd_args);
-                    // create pipe if valid
+                    // create pipe if pipe in command exists
                     if (pipe_num > 0)
                     {
                         if (i != 0)
@@ -83,7 +85,7 @@ int shell_loop()
                     }
 
                     // run linux command if valid
-                    if (execvp(cmd_args[0], cmd_args) == -1)
+                    if (execvp(new_args[0], new_args) == -1)
                     {
                         fprintf(stderr, "command %s is not valid\n", new_args[0]);
                     }
@@ -94,11 +96,14 @@ int shell_loop()
                     close(pfd[1]);
                     pipe_read = pfd[0];
                 }
+
+                // free up malloced memory
+                free(new_args);
+                free(cmd_args);
             }
             
             // wait for child process to terminate
             wait(NULL);
-
             // free up memory
             free(parsed_args);
         }
@@ -106,4 +111,3 @@ int shell_loop()
     // succesful end of program
     return 1;
 }
-
