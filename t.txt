@@ -1,8 +1,1 @@
-cmd args ls
-new args ls
-includes
-Makefile
-README.md
-shellLab
-src
-t.txt
+this should show up in the command terminal 

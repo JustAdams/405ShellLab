@@ -15,13 +15,11 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-
 #define PIPE_TOK_DELIM "|\t\r\n\a"
 #define SH_TOK_DELIM " \t\r\n\a"
 #define INPUT_LIMIT 100
 #define LETTER_LIMIT 100
 #endif
-
 
 #ifndef __BASIC_FUNC__  
 #define __BASIC_FUNC__

@@ -1,5 +1,7 @@
 #include "shell.h"
 
+// These are the functions that didn't come standard with the Linux system and we had to semi-build ourselves.
+
 // present working directory
 int sh_pwd(char **args) 
 {
@@ -31,7 +33,7 @@ int sh_cd(char **args)
 int sh_help(char **args)
 {
     
-    printf("\nCommands:\n\n");
+    printf("\n**** HELP ****\n\n");
     printf("Built-in Functions:\n");
     printf(" *  pwd - Display the present working directory\n");
     printf(" *  exit - Exits the shell\n");
@@ -39,6 +41,7 @@ int sh_help(char **args)
     printf(" *  help - Do what you're doing now!\n");
 
     printf("\nAll standard Linux commands are also included (e.g. 'ls', 'cat', 'touch', 'nano', etc...\n");
+    printf("\nGNU readline allows you to tab to autocomplete, and up/down arrow to see previously entered CLI\n");
 
     printf("\n");
     return 1;
