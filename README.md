@@ -6,7 +6,7 @@ Justin W. Adams
 
 Zachary Wallace
 
-
+-----------------------------------------------------
 This readme was typed in Vim using the attached Shell program!
 
 To use this program, simply enter 
